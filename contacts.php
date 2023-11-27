@@ -70,6 +70,70 @@
   </div>
   </form>
 </div>
+<!-- Update MODAL -->
+<div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Contact</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+	  <div class="col-lg-8 col-xl-6">
+                                <form action="Assets/PHP/update.php" id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST">
+                                    <!-- Name input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="name" name="nom" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <label for="name">Last name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A Last name is required.</div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="name" name="prenom" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <label for="name">First name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A First name is required.</div>
+                                    </div>
+                                    <!-- Email address input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                        <label for="email">Email address</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                    <!-- Phone number input-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="phone" name="num" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                        <label for="phone">Phone number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                    </div>
+									<div class="form-floating mb-3">
+                                        <input class="form-control" id="name" name="adress" type="text" placeholder="Enter your Adress..." data-sb-validations="required" />
+                                        <label for="name">Adress</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">An Adress is required.</div>
+                                    </div>
+                                    <div class="d-none" id="submitSuccessMessage">
+                                        <div class="text-center mb-3">
+                                            <div class="fw-bolder">Contact added successfully!</div>
+                                            <br />
+                                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                        </div>
+                                    </div>
+                                    <!-- Submit error message-->
+                                    <!---->
+                                    <!-- This is what your users will see when there is-->
+                                    <!-- an error submitting the form-->
+                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error adding contact!</div></div>
+                                    <!-- Submit Button-->
+                            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancel</button>
+        <button type="Submit" class="btn btn-primary" data-bs-dismiss="modal">Edit</button> 
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
  Add New
@@ -103,12 +167,10 @@
 		<td><?php echo $rows['adress']; ?></td> 
 		<td><?php echo $rows['datte']; ?></td>
 		<td><li class="list-inline-item">
-        <form action="">
-    <input data-toggle="tooltip" data-placement="top" title="Edit" class="btn btn-primary btn-sm rounded-0" type="submit" value="Edit" />
-</form>
-                                                <form action="Assets/PHP/delete.php?id=<?php echo $rows['id']; ?>">
-    <input data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-danger btn-sm rounded-0" type="submit" value="Delete" />
-</form> </li>
+        <button type="button" class="btn btn-primary" id="editlink" data-bs-toggle="modal" data-bs-target="#updatemodal"> Edit</button>
+        <input type="hidden" name="user_id" id="user_id" />  
+      <a href="Assets/PHP/delete.php?id=<?php echo $rows['id']; ?>" id="deletelink">Delete</a>                                        
+     </li>
 </td>
 		</tr> 
 		<?php 
@@ -117,6 +179,35 @@
 	</table>
 			
         </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script>
+        $(document).ready(function () {
+
+            $('#editblink').on('click', function () {
+
+                $('#updatemodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('nom').val(data[1]);
+                $('prenom').val(data[2]);
+                $('num').val(data[3]);
+                $('email').val(data[4]);
+                $('adress').val(data[4]);
+            });
+        });
+    </script>
         <?php
     include("Assets/PHP/footer.php");
     ?>
+
+    
+
