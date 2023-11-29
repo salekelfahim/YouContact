@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 $name = "youcontact";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $name);
+
+$conn = mysqli_connect($servername, $username, $password, $name);
 
 ?>

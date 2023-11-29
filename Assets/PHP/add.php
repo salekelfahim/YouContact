@@ -1,7 +1,5 @@
 <?php
-
-$connection = mysqli_connect("localhost","root","");
-$db = mysqli_select_db($connection, 'youcontact');
+include 'connection.php'; 
 
 if(isset($_POST['addcontact']))
 {
@@ -12,7 +10,7 @@ if(isset($_POST['addcontact']))
     $adress = $_POST['adress'];
 
     $query = "INSERT INTO contacts (`nom`,`prenom`,`email`,`num`, `adress`, `datte`) VALUES ('$nom','$prenom','$email','$num','$adress', NOW())";
-    $query_run = mysqli_query($connection, $query);
+    $query_run = mysqli_query($conn, $query);
 
     if($query_run)
     {

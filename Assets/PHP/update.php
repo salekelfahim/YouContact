@@ -1,7 +1,7 @@
 <?php
 include 'connection.php'; 
 
-    if(isset($_POST['updatedata']))
+    if(isset($_POST['updatecontact']))
     {   
         $id = $_POST['update_id'];
         
